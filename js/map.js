@@ -4,7 +4,7 @@ var marker;
 var myLatLng = {lat: 45.397, lng: -122.60};
 var markers = [];
 var infowindows = [];
-
+var donkeykong = "img/donkeykong.png";
 
 exports.initMap = function() {
   var myStyles =[
@@ -55,6 +55,7 @@ exports.setMarker = function(response) {
   var marker = new google.maps.Marker({
     position: myLatLng,
     draggable: true,
+    icon: donkeykong,
     animation: google.maps.Animation.DROP,
     map: map,
     title: response.name
