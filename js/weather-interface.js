@@ -9,12 +9,13 @@ $(document).ready(function() {
 
   $('#weatherLocation').click(function(event) {
     event.preventDefault();
-    map.initMap();
+
     var city = $('#location').val();
     $('#location').val('');
     //get the weather in the search city
     $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + apiKey).then(function(newResponse) {
       console.log(newResponse);
+      map.initMap(newResponse);
       //push it to responses
       responses.push(newResponse);
       //set the map with the responses and get back the markers
@@ -24,7 +25,7 @@ $(document).ready(function() {
       console.log(responses);
 
       //show the weather info
-      $('.showWeather').append('<li><a class="city-name">' + newResponse.name + '</a></li>');
+      $('.showWeather').append('<li class="city-name">' + newResponse.name + '</li>');
       $('.showWeather').append("<li>The humidity in " + newResponse.name + " is " + newResponse.main.humidity + "%</li>");
       $('.showWeather').append("<li>and the pressure is: " + newResponse.main.pressure + '</li>');
       $('.showWeather').append('<li>The temperature is: ' + newResponse.main.temp + 'degrees Farenheit');
@@ -38,9 +39,8 @@ $(document).ready(function() {
 
   });
 
-  $('ul').on('click', 'a.city-name', function() {
-    alert("hello");
-    console.log(this.value);
-    console.log('Hello!');
+  $('ul').on('click', '.city-name', function(event) {
+    alert(event.currentTarget.textContent);
+    console.log(event);
   });
 });
